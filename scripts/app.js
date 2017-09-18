@@ -28,7 +28,7 @@ $(document).ready(function(){
    
    $(".loading-spinner").show();
      if ($("#search").val().length > 0) {
-      
+      /*
      $.ajax(
        {
        url: "https://en.wikipedia.org/w/api.php?action=opensearch&format=json&search="+$("#search").val()+"&limit=8&callback=?",
@@ -59,46 +59,51 @@ $(document).ready(function(){
           $(".loading-spinner").hide();
           $("#results").append(wikiHTML);
         }
-     }); 
-     /*
+     }); */
+     
 
-     let headers = new Headers({
-    'Access-Control-Allow-Origin':'*'
-    });
+    
+    
 
-    fetch(`https://en.wikipedia.org/w/api.php?action=opensearch&format=json&search=${$("search").val()}&limit=8`, {
-      method: 'get',
-      mode: 'no-cors',
-      header: headers 
+    fetch(`https://en.wikipedia.org/w/api.php?origin=*&action=opensearch&format=json&search=${$("#search").val()}&limit=10`, {
+      method: 'GET'
     })
       .then((response) => response.json())
       .then((data) => {
-        let wikiHTML = "";
+        function generateHTML(title, snippet, url) {
+          let wikiHTML = `<a class="wiki-entry" target="_blank" href=${url}><h3>${title}</h3><hr><p>${snippet}</p></a>`;
+          $(".loading-spinner").hide();
+          $("#results").append(wikiHTML); 
+        }
+          /*
+                    '<a class="wiki-entry" target="_blank" href="' + url + '">' +
+                     
+                          '<h3>' + title + '</h3><hr>' + 
+                    '<p>'+ snippet +
+                     '</p>' +
+                       '</a>';*/
+            
+   
         if (data[1].length === 0) {
           $("#results").html('<h1 class="not-found">No entries found, try searching for something else!</h1>');
           $(".loading-spinner").hide();
         } else {
-          data[1].forEach(function(val,index, arr){
-            let title = val;
-            let snippet = arr[2][index];
-            let url = arr[3][index];
-            wikiHTML += 
-                '<a class="wiki-entry" target="_blank" href="' + url + '">' +
-                 
-                      '<h3>' + title + '</h3><hr>' + 
-                '<p>'+ snippet + '</p>' +
-                   '</a>';
-            $(".loading-spinner").hide();
-            $("#results").append(wikiHTML);       
-          });
+
+          for (let i = 0; i < data[1].length; i++) {
+            var title = data[1][i];
+            var snippet = data[2][i];
+            var url = data[3][i];
+            generateHTML(title, snippet, url);
+
+          }
         }
       })
       .catch(() => {
-        $("#results").html('<h1 class="error-msg">Could not load data from Wikipedia</h1>');
         $(".loading-spinner").hide();
+        $("#results").html('<h1 class="error-msg">Could not load data from Wikipedia</h1>');
         console.log('error!');
       });
-      */
+      
   }
  });
   
