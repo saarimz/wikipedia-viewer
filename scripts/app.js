@@ -28,6 +28,7 @@ $(document).ready(function(){
    
    $(".loading-spinner").show();
      if ($("#search").val().length > 0) {
+      /*
      $.ajax(
        {
        url: "https://en.wikipedia.org/w/api.php?action=opensearch&format=json&search="+$("#search").val()+"&limit=8&callback=?",
@@ -59,7 +60,13 @@ $(document).ready(function(){
           $(".loading-spinner").hide();
           $("#results").append(wikiHTML);
         }
-     });
+     }); */
+
+    fetch(`https://en.wikipedia.org/w/api.php?action=opensearch&format=json&search=${$("search").val()}&limit=8&callback=?`, {method: 'get'})
+      .then((response) => response.json())
+      .then((JSONresponse) => {
+        console.log(JSONresponse);
+      })
   }
  });
   
