@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<htmL>
+	<head>
+		<title>Wikipedia Viewer</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="styles/styles.css">
+	</head>
+	<body>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<h3 id="header">Search for any Wikipedia article</h3>
+				</div>
+			</div>
+  			<div class="row">
+  				<div class="col-md-12">
+  					<div class="search-bar">
+  						<input id="search" name="search" type="text" placeholder="Search for an article"></input>
+  						<button id="clear"><i class="fa fa-times" aria-hidden="true"></i></button>
+  					</div>
+  				</div>
+  			</div>
+  			<div class="row">
+  				<div class="col-md-12">
+  				 	<div class="random-button">
+  				 		<button id="random">No, I'm feeling lucky ...</button>
+  				 	</div>
+  				</div>
+  			</div>
+			<div class="row">
+  				<div class="col-md-12">
+  					<i class="loading-spinner fa fa-spinner fa-spin fa-lg" aria-hidden="true"></i>
+					<div id = "results"></div>
+  				</div>
+			</div>
+		</div>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script src="scripts/app.js"></script>
+	</body>
+</htmL>
