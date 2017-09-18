@@ -62,11 +62,42 @@ $(document).ready(function(){
         }
      }); */
 
-    fetch(`https://en.wikipedia.org/w/api.php?action=opensearch&format=json&search=${$("search").val()}&limit=8&callback=?`, {method: 'get'})
+     let headers = new Headers({
+    'Access-Control-Allow-Origin':'*'
+    });
+
+    fetch(`https://en.wikipedia.org/w/api.php?action=opensearch&format=json&search=${$("search").val()}&limit=8`, {
+      method: 'get',
+      mode: 'no-cors',
+      header: headers 
+    })
       .then((response) => response.json())
-      .then((JSONresponse) => {
-        console.log(JSONresponse);
+      .then((data) => {
+        let wikiHTML = "";
+        if (data[1].length === 0) {
+          $("#results").html('<h1 class="not-found">No entries found, try searching for something else!</h1>');
+          $(".loading-spinner").hide();
+        } else {
+          data[1].forEach(function(val,index, arr){
+            let title = val;
+            let snippet = arr[2][index];
+            let url = arr[3][index];
+            wikiHTML += 
+                '<a class="wiki-entry" target="_blank" href="' + url + '">' +
+                 
+                      '<h3>' + title + '</h3><hr>' + 
+                '<p>'+ snippet + '</p>' +
+                   '</a>';
+            $(".loading-spinner").hide();
+            $("#results").append(wikiHTML);       
+          });
+        }
       })
+      .catch(() => {
+        $("#results").html('<h1 class="error-msg">Could not load data from Wikipedia</h1>');
+        $(".loading-spinner").hide();
+        console.log('error!');
+      });
   }
  });
   
