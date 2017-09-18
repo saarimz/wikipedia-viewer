@@ -28,7 +28,7 @@ $(document).ready(function(){
    
    $(".loading-spinner").show();
      if ($("#search").val().length > 0) {
-      /*
+      
      $.ajax(
        {
        url: "https://en.wikipedia.org/w/api.php?action=opensearch&format=json&search="+$("#search").val()+"&limit=8&callback=?",
@@ -39,7 +39,6 @@ $(document).ready(function(){
        $("#results").html('<h1 class="error-msg">Could not load data from Wikipedia</h1>');
        }
      }).done(function(data){
-       console.log(data);
        var wikiHTML = "";
        if (data[1].length === 0) {
         $("#results").html('<h1 class="not-found">No entries found, try searching for something else!</h1>');
@@ -60,7 +59,8 @@ $(document).ready(function(){
           $(".loading-spinner").hide();
           $("#results").append(wikiHTML);
         }
-     }); */
+     }); 
+     /*
 
      let headers = new Headers({
     'Access-Control-Allow-Origin':'*'
@@ -98,6 +98,7 @@ $(document).ready(function(){
         $(".loading-spinner").hide();
         console.log('error!');
       });
+      */
   }
  });
   
